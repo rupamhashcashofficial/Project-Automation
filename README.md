@@ -32,3 +32,7 @@ Project Automation is a lightweight React-based application designed to simplify
 ## 🔗 Repository
 
 GitHub: https://github.com/rupamhashcashofficial/Project-Automation.git
+
+
+## Deployment
+Vercel: https://vercel.com/rupam-janas-projects/project-automation-ui
