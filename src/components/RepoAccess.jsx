@@ -11,15 +11,15 @@ function RepoAccess() {
     const generateOutput = () => {
         if (!repoName || !purpose) return '';
 
-        let output = `Repo Name : ${repoName}\n`;
-        output += `Purpose: ${purpose}\n`;
-        output += `Access: ${isWrite ? 'WRITE' : 'READ'}\n`;
+        let output = `📦 Repo Name : ${repoName}\n`;
+        output += `📋 Purpose: ${purpose}\n`;
+        output += `🔐 Access: ${isWrite ? 'WRITE' : 'READ'}\n`;
 
         if (isWrite) {
-            output += `Also provide READ access to jenkins@hashcashconsultants.com\n`;
+            output += `ℹ️ Also provide READ access to jenkins@hashcashconsultants.com\n`;
         }
 
-        output += `@repo-admin @Raj`;
+        output += `👥 @repo-admin @Raj`;
 
         return output;
     };
@@ -137,12 +137,44 @@ function RepoAccess() {
 
                         <div
                             ref={outputRef}
-                            className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl p-8 border-2 border-purple-500/30 min-h-[300px] font-mono text-base shadow-2xl"
+                            className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl p-8 border-2 border-purple-500/30 min-h-[300px] shadow-2xl"
                         >
                             {output ? (
-                                <pre className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400 whitespace-pre-wrap break-words animate-fade-in leading-relaxed">
-                                    {output}
-                                </pre>
+                                <div className="animate-fade-in space-y-3">
+                                    {/* Repo Name */}
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-cyan-400 font-bold text-lg">📦 Repo Name:</span>
+                                        <span className="text-white font-semibold text-lg">{repoName}</span>
+                                    </div>
+
+                                    {/* Purpose */}
+                                    <div className="flex items-start gap-2">
+                                        <span className="text-yellow-400 font-bold text-lg whitespace-nowrap">📋 Purpose:</span>
+                                        <span className="text-gray-200 text-lg whitespace-pre-wrap">{purpose}</span>
+                                    </div>
+
+                                    {/* Access */}
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-green-400 font-bold text-lg">🔐 Access:</span>
+                                        <span className="px-3 py-1 bg-green-500/20 border border-green-500/50 rounded-full text-green-300 font-bold text-lg">
+                                            {isWrite ? 'WRITE' : 'READ'}
+                                        </span>
+                                    </div>
+
+                                    {/* Jenkins Info */}
+                                    {isWrite && (
+                                        <div className="flex items-start gap-2 bg-blue-500/10 border border-blue-500/30 rounded-lg p-3">
+                                            <span className="text-blue-400 text-lg">ℹ️</span>
+                                            <span className="text-blue-300 text-base">Also provide READ access to jenkins@hashcashconsultants.com</span>
+                                        </div>
+                                    )}
+
+                                    {/* Tags */}
+                                    <div className="flex items-center gap-2 mt-4 pt-3 border-t border-purple-500/30">
+                                        <span className="text-purple-400 text-lg">👥</span>
+                                        <span className="text-purple-300 font-semibold text-lg">@repo-admin @Raj</span>
+                                    </div>
+                                </div>
                             ) : (
                                 <div className="flex items-center justify-center h-full">
                                     <div className="text-center">
