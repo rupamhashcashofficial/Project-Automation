@@ -5,6 +5,7 @@ function RepoAccess() {
     const [repoName, setRepoName] = useState('');
     const [purpose, setPurpose] = useState('');
     const [isWrite, setIsWrite] = useState(true);
+    const [additionalUsers, setAdditionalUsers] = useState('');
     const [copied, setCopied] = useState(false);
     const outputRef = useRef(null);
 
@@ -19,7 +20,12 @@ function RepoAccess() {
             output += `ℹ️ Also provide READ access to jenkins@hashcashconsultants.com\n`;
         }
 
-        output += `👥 @repo-admin @Raj`;
+        // Combine additional users with auto-tagged users
+        const allUsers = additionalUsers.trim()
+            ? `${additionalUsers.trim()} @repo-admin @Raj`
+            : '@repo-admin @Raj';
+
+        output += `👥 ${allUsers}`;
 
         return output;
     };
@@ -102,11 +108,26 @@ function RepoAccess() {
                                 </div>
                             </div>
 
-                            {/* Additional Users */}
-                            <div className="p-4 bg-purple-500/20 border border-purple-400/30 rounded-lg">
-                                <p className="text-purple-200 text-sm font-medium">
-                                    📌 Auto-tagged: @repo-admin @Raj
-                                </p>
+                            {/* Auto-tagged Info */}
+                            <div className="space-y-3">
+                                <div className="group">
+                                    <label className="block text-sm font-medium text-purple-200 mb-2">
+                                        Additional Users (optional)
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={additionalUsers}
+                                        onChange={(e) => setAdditionalUsers(e.target.value)}
+                                        placeholder="@username1 @username2"
+                                        className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 group-hover:border-purple-400"
+                                    />
+                                </div>
+
+                                <div className="p-4 bg-purple-500/20 border border-purple-400/30 rounded-lg">
+                                    <p className="text-purple-200 text-sm font-medium">
+                                        🔖 Auto-tagged: <span className="text-purple-100">@repo-admin @Raj</span>
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -170,9 +191,14 @@ function RepoAccess() {
                                     )}
 
                                     {/* Tags */}
-                                    <div className="flex items-center gap-2 mt-4 pt-3 border-t border-purple-500/30">
-                                        <span className="text-purple-400 text-lg">👥</span>
-                                        <span className="text-purple-300 font-semibold text-lg">@repo-admin @Raj</span>
+                                    <div className="flex items-start gap-2 mt-4 pt-3 border-t border-purple-500/30">
+                                        <span className="text-purple-400 text-lg whitespace-nowrap">👥</span>
+                                        <div className="text-purple-300 font-semibold text-lg flex flex-wrap gap-2">
+                                            {additionalUsers.trim() && (
+                                                <span className="text-pink-300">{additionalUsers.trim()}</span>
+                                            )}
+                                            <span className="text-purple-300">@repo-admin @Raj</span>
+                                        </div>
                                     </div>
                                 </div>
                             ) : (
